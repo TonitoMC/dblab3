@@ -4,6 +4,9 @@ Este laboratorio consiste en realizar una aplicación CRUD completa utilizando e
 relación muchos-a-muchos y se debe poder insertar en múltiples tablas por medio de un mismo formulario. Adicionalmente, se deben declarar 2 tipos de datos personalizados.
 ## Ubicación de Archivos
 - /backend/ los archivos relacionados al backend, incluyendo el schema.prisma para la creación de la base de datos y el manejo de migraciones
+    - El script de creacion se encuentra en prisma/schema.prisma para la definicion y prisma/migrations para el script
+    - El crud utilizando el ORM se encuentra en internal/players.ts
+    - El script de insercion de datos se encuentra en sql/data.sql y se ejecuta por medio de un script en package.json
 - /frontend/ la interfaz por medio de la cual se interactúa eon el backend
 - /docs/ la documentación adicional, incluyendo el diagrama ERD y análisis.pdf
 
