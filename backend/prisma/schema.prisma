@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+  previewFeatures = ["views"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Jugador {
+  id            Int             @id @default(autoincrement())
+  nombre        String
+  posicion      Posicion
+  edad          Int             @db.SmallInt
+  nacionalidad  String
+  createdAt     DateTime        @default(now())
+
+  estadisticas  Estadistica[]
+  equipos       JugadorEquipo[]
+}
+
+model Equipo {
+  id        Int             @id @default(autoincrement())
+  nombre    String          @unique
+  liga      String
+  pais      String
+  fundado   Int             @db.SmallInt
+
+  jugadores JugadorEquipo[]
+}
+
+model JugadorEquipo {
+  jugadorId     Int
+  equipoId      Int
+  fechaIngreso  DateTime
+  fechaSalida   DateTime?
+
+  jugador       Jugador    @relation(fields: [jugadorId], references: [id], onDelete: Cascade)
+  equipo        Equipo     @relation(fields: [equipoId], references: [id], onDelete: Cascade)
+
+  @@id([jugadorId, equipoId, fechaIngreso])
+}
+
+model Estadistica {
+  id              Int         @id @default(autoincrement())
+  jugadorId       Int
+  partidosJugados Int
+  goles           Int
+  asistencias     Int
+  temporada       Temporada
+
+  jugador         Jugador     @relation(fields: [jugadorId], references: [id], onDelete: Cascade)
+}
+
+enum Posicion {
+  Portero
+  Defensa
+  Mediocampista
+  Delantero
+}
+
+enum Temporada {
+  T2021_2022
+  T2022_2023
+  T2023_2024
+}
+
+view JugadorEquiposView {
+  view_row_id         BigInt    @id
+
+  jugadorId           Int
+  jugadorNombre       String
+  jugadorPosicion     Posicion
+  jugadorEdad         Int
+  jugadorNacionalidad String
+  jugadorCreatedAt    DateTime
+
+  equipoId            Int?
+  equipoNombre        String?
+  equipoLiga          String?
+  equipoPais          String?
+  equipoFundado       Int?
+
+  fechaIngreso        DateTime?
+  fechaSalida         DateTime?
+
+  estadisticasArray   Json?
+}
