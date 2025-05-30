@@ -22,6 +22,9 @@ El backend se encuentra corriendo en el puerto 3001, frontend en el 3000 y la ba
 
 ## Ejemplos
 ### Create / Formulario de Creación
+![image](https://github.com/user-attachments/assets/190aef29-40cc-4e37-b8fe-8f8fd85de44f)
+
+![image](https://github.com/user-attachments/assets/c474ac97-19e2-402a-ad8a-1c6bf10ccc4e)
 
 
 ### Read / Visualización de Jugadores
