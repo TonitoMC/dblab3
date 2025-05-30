@@ -1,5 +1,5 @@
 import { Elysia, t } from "elysia";
-import { Posicion } from '@prisma/client';
+import { Temporada, Posicion } from '@prisma/client';
 import { cors } from "@elysiajs/cors";
 import { createPlayer, getPlayers, updatePlayer, deletePlayer } from 'internal/players';
 
@@ -58,6 +58,16 @@ const app = new Elysia()
                 })
               )
             ),
+            estadisticas: t.Optional(
+              t.Array(
+                t.Object({
+                  partidosJugados: t.Number(),
+                  goles: t.Number(),
+                  asistencias: t.Number(),
+                  temporada: t.Enum(Temporada),
+                })
+              )
+            )
           }),
         }
       )
